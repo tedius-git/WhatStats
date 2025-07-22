@@ -9,5 +9,5 @@ export default defineConfig({
     build: {
         target: 'esnext',
     },
-    base: '/<REPO>/',
+    base: '/WhatStats/',
 });
