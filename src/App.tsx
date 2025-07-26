@@ -7,10 +7,9 @@ import { FileProvider } from './Context';
 
 const App: Component = () => {
     return (
-
         <FileProvider>
             <InputFile />
-            <OutPut />
+                <OutPut />
         </FileProvider>
     );
 };
