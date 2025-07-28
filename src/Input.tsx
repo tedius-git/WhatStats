@@ -1,11 +1,10 @@
-import { type Component } from 'solid-js';
-import { useFileReader, FileInfo } from "./Context"
+import { Setter, type Component } from 'solid-js';
+import { useFileReader, TxtFile } from "./Context"
 
-const readFile = (e: Event, setContent: (content: string | null) => void, setFileInfo: (info: FileInfo | null) => void) => {
+const readFile = (e: Event, setFile: Setter<TxtFile | null>) => {
     const target = e.target as HTMLInputElement
     if (target.files == null) {
-        setContent(null)
-        setFileInfo(null)
+        setFile(null)
         return
     }
     const file = target.files[0]
@@ -13,9 +12,8 @@ const readFile = (e: Event, setContent: (content: string | null) => void, setFil
     const size = file.size
     let fileReader = new FileReader()
     fileReader.onload = () => {
-        setContent(fileReader.result as string)
-        setFileInfo({ name: name, size: size })
-        localStorage.setItem("file", fileReader.result as string)
+        setFile({ name: name, size: size, content: fileReader.result as string })
+        localStorage.setItem("content", fileReader.result as string)
         localStorage.setItem("name", name as string)
         localStorage.setItem("size", size.toString())
     }
@@ -23,16 +21,16 @@ const readFile = (e: Event, setContent: (content: string | null) => void, setFil
 }
 
 const InputFile: Component = () => {
-    const { setContent, setFileInfo } = useFileReader()
+    const { setFile } = useFileReader()
 
     return (
         <header class="header-container">
             <h1 class="header-title">WhatStats</h1>
             <form>
                 <label>Choose the .txt
-                <div class='top-white'></div>
+                    <div class='top-white'></div>
                     <input type="file" accept=".txt"
-                        onChange={(e) => readFile(e, setContent, setFileInfo)}>
+                        onChange={(e) => readFile(e, setFile)}>
                     </input>
                 </label>
             </form>

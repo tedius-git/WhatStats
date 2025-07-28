@@ -5,6 +5,7 @@ interface WindowProps {
     title: string;
     icon: string;
     show?: boolean;
+    onClose?: any;
 }
 
 const Window: ParentComponent<WindowProps> = (props) => {
@@ -16,7 +17,7 @@ const Window: ParentComponent<WindowProps> = (props) => {
                         <img src={props.icon} alt="" />
                     </Show>
                     <p class={styles.title}>{props.title}</p>
-                    <button class={styles.exit}>x</button>
+                    <button onclick={props.onClose} class={styles.exit}>x</button>
                 </div>
                 <div class={styles.content}>
                     {props.children}
