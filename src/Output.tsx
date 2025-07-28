@@ -27,7 +27,7 @@ const OutPut: Component = () => {
                     <div>
                         <h3>Number of Messages: {data().stats.numMsg}</h3>
                         <div>
-                            <h3>People in the Chat:</h3>
+                            <h3>People in the Chat: {data().stats.people.length}</h3>
                             {data().stats.people.map(person => (
                                 <div class="person">
                                     <p class="name">{person.person}</p>
