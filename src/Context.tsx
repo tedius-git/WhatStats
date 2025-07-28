@@ -1,30 +1,35 @@
 import { Accessor, createContext, createSignal, ParentProps, Setter, useContext } from "solid-js"
 
-export interface FileInfo {
+export interface TxtFile {
     name: string,
     size: number,
+    content: string,
 }
 
+
 interface FileContextType {
-    content: Accessor<string | null>,
-    setContent: Setter<string | null>,
-    fileInfo: Accessor<FileInfo | null>
-    setFileInfo: Setter<FileInfo | null>
+    file: Accessor<TxtFile | null>,
+    setFile: Setter<TxtFile | null>,
+    erraseFile: (setFile: Setter<TxtFile | null>) => void,
 }
 
 const FileContext = createContext<FileContextType>()
 
 export function FileProvider(props: ParentProps) {
-    const [content, setContent] = createSignal(localStorage.getItem("file"))
-    const [fileInfo, setFileInfo] = createSignal<FileInfo | null>(
-        localStorage.getItem("name") && localStorage.getItem("size")
+    const [file, setFile] = createSignal<TxtFile | null>(
+        localStorage.getItem("name") && localStorage.getItem("size") && localStorage.getItem("content")
             ? {
                 name: localStorage.getItem("name")!,
-                size: Number(localStorage.getItem("size")) || 0
+                size: Number(localStorage.getItem("size")) || 0,
+                content: localStorage.getItem("content")!
             }
             : null
     )
-    const contextValue: FileContextType = { content, setContent, fileInfo, setFileInfo }
+    const erraseFile = (setFile: Setter<TxtFile | null>) => {
+        setFile(null)
+        localStorage.clear()
+    }
+    const contextValue: FileContextType = { file, setFile, erraseFile }
     return (
         <FileContext.Provider value={contextValue}>
             {props.children}

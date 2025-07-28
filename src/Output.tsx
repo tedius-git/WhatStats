@@ -1,43 +1,38 @@
-import { getStats, Stats } from "./analisis"
-import { Accessor, type Component, createMemo, Show } from 'solid-js';
-import { useFileReader } from "./Context"
+import { getStats } from "./analisis"
+import { type Component, createMemo, Setter, Show } from 'solid-js';
+import { TxtFile, useFileReader } from "./Context"
 import Window from "./Window"
 import icon from "./assets/whatstats.png"
 
 const OutPut: Component = () => {
-    const { content, fileInfo } = useFileReader()
+    const { setFile, file, erraseFile } = useFileReader()
 
-    const stats: Accessor<Stats | null> = createMemo(() => {
-        const currentContent = content()
-        return currentContent ? getStats(currentContent) : null
-    })
-
-    const displayData = createMemo(() => {
-        const info = fileInfo()
-        const currentStats = stats()
-        return info && currentStats ? { info, stats: currentStats } : null
+    const stats = createMemo(() => {
+        const fileResult = file()
+        if (fileResult) {
+            return { name: fileResult.name, size: fileResult.size, stats: getStats(fileResult.content) }
+        }
     })
 
     return (
-        <Show when={displayData()} fallback={<div>No file selected or loading...</div>}>
-            {(data) => (
-                <Window title={data().info.name + " " + data().info.size}
-                 icon={icon}
-                >
+        <Show when={stats()} fallback={<div>No file selected or loading...</div>}>
+            <Window title={stats()?.name + " " + stats()?.size}
+                icon={icon}
+                onClose={(e: Event) => erraseFile(setFile)}
+            >
+                <div>
+                    <h3>Number of Messages: {stats()?.stats.numMsg}</h3>
                     <div>
-                        <h3>Number of Messages: {data().stats.numMsg}</h3>
-                        <div>
-                            <h3>People in the Chat: {data().stats.people.length}</h3>
-                            {data().stats.people.map(person => (
-                                <div class="person">
-                                    <p class="name">{person.person}</p>
-                                    <p class="number">{person.number}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <h3>People in the Chat: {stats()?.stats.people.length}</h3>
+                        {stats()?.stats.people.map(person => (
+                            <div class="person">
+                                <p class="name">{person.person}: </p>
+                                <p class="number">{person.number}</p>
+                            </div>
+                        ))}
                     </div>
-                </Window>
-            )}
+                </div>
+            </Window>
         </Show>
     )
 }
