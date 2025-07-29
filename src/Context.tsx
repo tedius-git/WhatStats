@@ -1,16 +1,13 @@
 import { Accessor, createContext, createSignal, ParentProps, Setter, useContext } from "solid-js"
 
-export interface TxtFile {
-    name: string,
-    size: number,
-    content: string,
-}
+import { TxtFile, erraseFile, readFileFromInput } from "./file"
 
 
 interface FileContextType {
     file: Accessor<TxtFile | null>,
     setFile: Setter<TxtFile | null>,
-    erraseFile: (setFile: Setter<TxtFile | null>) => void,
+    readFileFromInput: (e: Event) => void,
+    erraseFile: () => void,
 }
 
 const FileContext = createContext<FileContextType>()
@@ -20,16 +17,15 @@ export function FileProvider(props: ParentProps) {
         localStorage.getItem("name") && localStorage.getItem("size") && localStorage.getItem("content")
             ? {
                 name: localStorage.getItem("name")!,
-                size: Number(localStorage.getItem("size")) || 0,
+                size: localStorage.getItem("size")!,
                 content: localStorage.getItem("content")!
             }
             : null
     )
-    const erraseFile = (setFile: Setter<TxtFile | null>) => {
-        setFile(null)
-        localStorage.clear()
+    const contextValue: FileContextType = {
+        file: file, setFile: setFile, erraseFile: erraseFile(setFile),
+        readFileFromInput: readFileFromInput(setFile)
     }
-    const contextValue: FileContextType = { file, setFile, erraseFile }
     return (
         <FileContext.Provider value={contextValue}>
             {props.children}
