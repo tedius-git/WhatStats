@@ -1,6 +1,6 @@
 import { getStats } from "./analisis"
-import { type Component, createMemo, Setter, Show } from 'solid-js';
-import { TxtFile, useFileReader } from "./Context"
+import { type Component, createMemo, Show } from 'solid-js';
+import { useFileReader } from "./Context"
 import Window from "./Window"
 import icon from "./assets/whatstats.png"
 
