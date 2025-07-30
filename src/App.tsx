@@ -1,4 +1,4 @@
-import { createSignal, type Component } from 'solid-js';
+import {type Component } from 'solid-js';
 import InputFile from './Input';
 import OutPut from './Output';
 import "./App.css"
@@ -6,10 +6,9 @@ import { FileProvider } from './Context';
 
 
 const App: Component = () => {
-    const [search, setSearch] = createSignal("")
     return (
         <FileProvider>
-            <InputFile onSearch={setSearch} />
+            <InputFile/>
             <OutPut />
         </FileProvider>
     );
