@@ -6,8 +6,8 @@ import { TxtFile, erraseFile, readFileFromInput } from "./file"
 interface FileContextType {
     file: Accessor<TxtFile | null>,
     setFile: Setter<TxtFile | null>,
-    readFileFromInput: (e: Event) => void,
-    erraseFile: () => void,
+    readFileFromInput: (e: Event, f: Setter<TxtFile | null>) => void,
+    erraseFile: (f: Setter<TxtFile | null>) => void,
 }
 
 const FileContext = createContext<FileContextType>()
@@ -23,8 +23,8 @@ export function FileProvider(props: ParentProps) {
             : null
     )
     const contextValue: FileContextType = {
-        file: file, setFile: setFile, erraseFile: erraseFile(setFile),
-        readFileFromInput: readFileFromInput(setFile)
+        file: file, setFile: setFile, erraseFile: erraseFile,
+        readFileFromInput: readFileFromInput
     }
     return (
         <FileContext.Provider value={contextValue}>

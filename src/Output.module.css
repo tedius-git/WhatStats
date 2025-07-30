@@ -1,0 +1,43 @@
+:root {
+  --white: #ffffff;       
+  --black: #141414;       
+  --gray: #2e2e2e;
+  --glass:linear-gradient(to bottom, rgba(200, 200, 200, 0.2), rgba(200, 200, 200, 0.0));
+} 
+
+.output {
+  display: flex;
+  flex-direction: row;
+}
+
+.left {
+  display: flex;
+  flex-grow:1;
+  flex-direction: column;
+  border-right: solid rgba(200,200,200,0.9) 1px;
+}
+
+.right {
+  width:75%;
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh; /* Define una altura fija */
+  overflow-y: auto;
+}
+
+
+.person {
+  display: flex;
+  flex-direction: row;
+  border: solid rgba(200,200,200,0.9) 1px;
+  line-height: 0px;
+}
+
+.person:hover {
+  background: linear-gradient(to bottom, 
+    rgba(179, 217, 255, 0.2) 0%,
+    rgba(74, 144, 226, 0.2) 40%,
+    rgba(0, 89, 179, 0.2) 70%,
+    rgba(0, 51, 102, 0.3) 100%
+   );
+}

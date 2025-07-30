@@ -92,11 +92,21 @@ input.search:focus {
   background-color: rgba(255, 255, 255, 0.9);
 }
 
+.detail {
+  align-self: stretch;
+  background: white;
+  border: solid rgba(100,100,100,0.6) 1px;
+  border-radius: 4px;
+  margin: 4px;
+  padding-right: 4px;
+  padding-left: 4px;
+  line-height: 0px;
+  font-size: 12px;
+}
+
 .content {
   background: white;
   border: solid rgba(100,100,100,0.6) 1px;
   border-radius: 4px;
   margin: 10px;
-  max-height: 70vh; /* Define una altura fija */
-  overflow-y: auto;
 }

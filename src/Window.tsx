@@ -1,4 +1,4 @@
-import {type ParentComponent, Setter, Show } from 'solid-js';
+import { JSX, type ParentComponent, Setter, Show } from 'solid-js';
 import styles from "./Window.module.css"
 
 interface WindowProps {
@@ -7,6 +7,7 @@ interface WindowProps {
     show?: boolean;
     onClose?: any;
     onSearch: Setter<string>;
+    details?: JSX.Element[];
 }
 
 const Window: ParentComponent<WindowProps> = (props) => {
@@ -22,6 +23,13 @@ const Window: ParentComponent<WindowProps> = (props) => {
                     <button onclick={props.onClose} class={styles.exit}>x</button>
                 </div>
                 <div class={styles.decoration}>
+                    <Show when={props.details}>
+                        {props.details?.map(element => (
+                            <div class={styles.detail}>
+                                {element}
+                            </div>
+                        ))}
+                    </Show>
                     <input
                         class={styles.search}
                         placeholder="Search"

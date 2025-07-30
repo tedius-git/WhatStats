@@ -50,15 +50,6 @@ p {
   color: var(--white);
 }
 
-.person {
-  display: flex;
-  flex-direction: row;
-}
-
-.person.number {
-    color:white;
-}
-
 .glass {
   background: var(--glass-light);
   backdrop-filter: blur(2px);

@@ -3,7 +3,7 @@ import { useFileReader } from "./Context"
 
 
 const InputFile: Component = () => {
-    const { readFileFromInput } = useFileReader()
+    const { setFile, readFileFromInput } = useFileReader()
 
     return (
         <header class="header-container">
@@ -12,7 +12,7 @@ const InputFile: Component = () => {
                 <label>Choose the .txt
                     <div class='top-white'></div>
                     <input type="file" accept=".txt"
-                        onChange={(e) => readFileFromInput(e)}>
+                        onChange={(e) => readFileFromInput(e, setFile)}>
                     </input>
                 </label>
             </form>

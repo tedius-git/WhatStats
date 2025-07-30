@@ -20,31 +20,27 @@ export function formatFileSize(bytes: number): string {
 }
 
 
-export function readFileFromInput(setFile: Setter<TxtFile | null>) {
-    return function(e: Event) {
-        const target = e.target as HTMLInputElement
-        if (target.files == null) {
-            setFile(null)
-        } else {
-            const file = target.files[0]
-            const name = file.name.split(".txt")[0]
-            const size = file.size
-            let fileReader = new FileReader()
-            fileReader.onload = () => {
-                setFile({ name: name, size: formatFileSize(size), content: fileReader.result as string })
-                localStorage.setItem("content", fileReader.result as string)
-                localStorage.setItem("name", name as string)
-                localStorage.setItem("size", formatFileSize(size) as string)
-            }
-            fileReader.readAsText(file)
+export function readFileFromInput(e: Event, setFile: Setter<TxtFile | null>) {
+    const target = e.target as HTMLInputElement
+    if (target.files == null) {
+        setFile(null)
+    } else {
+        const file = target.files[0]
+        const name = file.name.split(".txt")[0]
+        const size = file.size
+        let fileReader = new FileReader()
+        fileReader.onload = () => {
+            setFile({ name: name, size: formatFileSize(size), content: fileReader.result as string })
+            localStorage.setItem("content", fileReader.result as string)
+            localStorage.setItem("name", name as string)
+            localStorage.setItem("size", formatFileSize(size) as string)
         }
+        fileReader.readAsText(file)
     }
 }
 
 
 export function erraseFile(setFile: Setter<TxtFile | null>) {
-    return function() {
-        setFile(null)
-        localStorage.clear()
-    }
+    setFile(null)
+    localStorage.clear()
 }

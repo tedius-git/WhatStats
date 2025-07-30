@@ -1,6 +1,7 @@
 export type Stats = {
     numMsg: number
     people: Array<{ person: string, number: number }>
+    messages: Msg[]
 }
 
 type Date = {
@@ -19,7 +20,7 @@ export type Msg = {
 }
 
 export function getStats(content: string): Stats {
-    const msgs = parseTxt(content)
+    const msgs = parseTxt(content).filter(msg => msg.author)
     const people = Array.from(new Set(msgs.map(msg => msg.author).filter((item) => item !== undefined)))
     const msgPerPerson = people.map((person) => {
         return {
@@ -28,6 +29,7 @@ export function getStats(content: string): Stats {
         }
     }).toSorted((person, prev) => prev.number - person.number)
     return {
+        messages: msgs,
         numMsg: msgs.length,
         people: msgPerPerson,
     }
