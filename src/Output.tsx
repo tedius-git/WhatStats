@@ -1,11 +1,12 @@
 import { getStats } from "./analisis"
-import { type Component, createMemo, Show } from 'solid-js';
+import { type Component, createMemo, createSignal, Show } from 'solid-js';
 import { useFileReader } from "./Context"
 import Window from "./Window"
 import icon from "./assets/whatstats.png"
 
 const OutPut: Component = () => {
-    const { setFile, file, erraseFile } = useFileReader()
+    const { file, erraseFile } = useFileReader()
+    const [search, setSearch] = createSignal("")
 
     const stats = createMemo(() => {
         const fileResult = file()
@@ -18,7 +19,8 @@ const OutPut: Component = () => {
         <Show when={stats()} fallback={<div>No file selected or loading...</div>}>
             <Window title={stats()?.name + " " + stats()?.size}
                 icon={icon}
-                onClose={(e: Event) => erraseFile(setFile)}
+                onClose={(e: Event) => erraseFile}
+                onSearch={setSearch}
             >
                 <div>
                     <h3>Number of Messages: {stats()?.stats.numMsg}</h3>
