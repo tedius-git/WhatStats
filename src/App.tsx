@@ -1,5 +1,4 @@
-import {type Component } from 'solid-js';
-import InputFile from './Input';
+import { type Component } from 'solid-js';
 import OutPut from './Output';
 import "./App.css"
 import { FileProvider } from './Context';
@@ -8,7 +7,7 @@ import { FileProvider } from './Context';
 const App: Component = () => {
     return (
         <FileProvider>
-            <InputFile/>
+            <h1 class="header-title">WhatStats</h1>
             <OutPut />
         </FileProvider>
     );

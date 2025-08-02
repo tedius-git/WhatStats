@@ -1,8 +1,13 @@
 export type Stats = {
     numMsg: number
-    people: Array<{ person: string, number: number }>
+    people: Person[]
     messages: Msg[]
 }
+
+export type Person = {
+    name: string, number: number
+}
+
 
 type Date = {
     day: number,
@@ -19,12 +24,12 @@ export type Msg = {
     content: string
 }
 
-export function getStats(content: string): Stats {
-    const msgs = parseTxt(content).filter(msg => msg.author)
+export function getStats(msgs: Msg[]): Stats {
+    // const msgs = parseTxt(content).filter(msg => msg.author)
     const people = Array.from(new Set(msgs.map(msg => msg.author).filter((item) => item !== undefined)))
     const msgPerPerson = people.map((person) => {
         return {
-            person: person,
+            name: person,
             number: msgs.filter((msg) => msg.author === person).length
         }
     }).toSorted((person, prev) => prev.number - person.number)
@@ -59,7 +64,7 @@ const getAuthor = (line: string): string | undefined => {
     }
 }
 
-const parseTxt = (content: string): Msg[] => {
+export function parseTxt(content: string): Msg[] {
     const dateLineRegex = /^\d{1,2}\/\d{1,2}\/\d{4},/;
     const lines = content.split("\n");
 
@@ -76,5 +81,5 @@ const parseTxt = (content: string): Msg[] => {
             messages[messages.length - 1].content += "\n" + line;
         }
     }
-    return messages
+    return messages.filter(msg => msg.author)
 }
