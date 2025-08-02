@@ -6,8 +6,6 @@ interface WindowProps {
     icon: string;
     show?: boolean;
     onClose?: any;
-    onSearch: Setter<string>;
-    details?: JSX.Element[];
 }
 
 const Window: ParentComponent<WindowProps> = (props) => {
@@ -21,20 +19,6 @@ const Window: ParentComponent<WindowProps> = (props) => {
                     </Show>
                     <p class={styles.title}>{props.title}</p>
                     <button onclick={props.onClose} class={styles.exit}>x</button>
-                </div>
-                <div class={styles.decoration}>
-                    <Show when={props.details}>
-                        {props.details?.map(element => (
-                            <div class={styles.detail}>
-                                {element}
-                            </div>
-                        ))}
-                    </Show>
-                    <input
-                        class={styles.search}
-                        placeholder="Search"
-                        onInput={(e) => props.onSearch(e.currentTarget.value)}
-                    />
                 </div>
                 <div class={styles.content}>
                     {props.children}
