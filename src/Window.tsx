@@ -21,7 +21,7 @@ const Window: ParentComponent<WindowProps> = (props) => {
         <div class={windowStyle()}>
             <div class={styles.decoration}>
                 <Show when={props.icon}>
-                    <img src={props.icon} alt="" />
+                    <img src={props.icon} class={styles.icon} alt="" />
                 </Show>
                 <p class={styles.title}>{props.title}</p>
                 <button onclick={props.onClose} class={styles.exit}>x</button>

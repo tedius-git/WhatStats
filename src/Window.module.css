@@ -8,10 +8,10 @@
 
 .window {
   background: var(--glass);
-  backdrop-filter: blur(2px);
-  border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0);
   margin: 2rem;
 }
 
@@ -22,9 +22,9 @@
   transform: translate(-50%, -50%);
   background: var(--glass);
   backdrop-filter: blur(2px);
-  border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0);
   width: fit-content;
 }
 
@@ -38,7 +38,7 @@
 }
 
 
-img {
+.icon {
   align-self: end;
   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.7);
   height: 1.5rem;
@@ -88,7 +88,6 @@ button.exit:hover {
 
 .content {
   background: white;
-  border: solid rgba(100,100,100,0.6) 1px;
-  border-radius: 4px;
-  margin: 10px;
+  border: 1px solid rgba(0,0,0,0.6);
+  margin: 10px 7px 7px 7px;
 }

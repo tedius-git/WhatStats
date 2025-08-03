@@ -1,7 +1,7 @@
 import { type Component } from 'solid-js';
 import { useFileReader } from "./Context"
 import Window from "./Window"
-import icon from "./assets/whatstats.png"
+import icon from "./assets/explorer.png"
 import styles from "./Input.module.css"
 
 

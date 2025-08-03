@@ -20,26 +20,27 @@
 }
 
 body {
-  background: url("./assets/EBh0Dr9.jpeg") no-repeat center center fixed;
+  background: url("./assets/windows_7_168.jpg") no-repeat center center fixed;
   background-size: cover;
   position: relative;
   font-family: "Frutiger";
 }
 
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: -1;
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 4px;
 }
 
-.header-title {
+h1 {
     font-size: 2.5rem;
     font-weight: bold;
     color: white;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+img {
+  width: 2rem;
+  height: 2rem;
 }
