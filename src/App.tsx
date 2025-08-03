@@ -10,9 +10,11 @@ const App: Component = () => {
         <FileProvider>
             <header>
                 <h1>WhatStats</h1>
-                <a href='https://github.com/tedius-git/WhatStats' target='_blank'>
-                    <img src={icon} />
-                </a>
+                <div class='taskbar_app'>
+                    <a href='https://github.com/tedius-git/WhatStats' target='_blank'>
+                        <img src={icon} />
+                    </a>
+                </div>
             </header>
             <OutPut />
         </FileProvider>
