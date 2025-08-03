@@ -13,10 +13,13 @@ const InputFile: Component = () => {
             icon={icon}
             resizable={true}
         >
+            <p class={styles.hint}>
+                Please select the .zip or the .txt file from inside.
+            </p>
             <form>
-                <label>Choose the .txt
+                <label>Select file
                     <div class={styles.top_white}></div>
-                    <input type="file" accept=".txt"
+                    <input type="file" accept=".txt, .zip"
                         onChange={(e) => readFileFromInput(e, setFile)}>
                     </input>
                 </label>

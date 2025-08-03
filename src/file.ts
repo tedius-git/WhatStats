@@ -1,4 +1,5 @@
 import { Setter } from "solid-js"
+import JSZip from "jszip";
 
 export interface TxtFile {
     name: string,
@@ -19,23 +20,51 @@ export function formatFileSize(bytes: number): string {
     }
 }
 
-
-export function readFileFromInput(e: Event, setFile: Setter<TxtFile | null>) {
+export async function readFileFromInput(
+    e: Event,
+    setFile: Setter<TxtFile | null>
+) {
     const target = e.target as HTMLInputElement
     if (target.files == null) {
         setFile(null)
-    } else {
-        const file = target.files[0]
+        return
+    }
+
+    const file = target.files[0]
+    const ext = file.name.split(".").pop()?.toLowerCase()
+
+    if (ext === "zip") {
+        const zip = await JSZip.loadAsync(file)
+        for (const [path, entry] of Object.entries(zip.files)) {
+            if (path.endsWith(".txt") && !entry.dir) {
+                const content = await entry.async("string")
+                const name = path.split("/").pop()?.replace(".txt", "") ?? "archivo"
+                const size = new Blob([content]).size
+
+                setFile({ name, size: formatFileSize(size), content })
+                localStorage.setItem("content", content)
+                localStorage.setItem("name", name)
+                localStorage.setItem("size", formatFileSize(size))
+                return
+            }
+        }
+        alert("No .txt file found inside de .zip")
+        setFile(null)
+    } else if (ext === "txt") {
         const name = file.name.split(".txt")[0]
         const size = file.size
-        let fileReader = new FileReader()
-        fileReader.onload = () => {
-            setFile({ name: name, size: formatFileSize(size), content: fileReader.result as string })
-            localStorage.setItem("content", fileReader.result as string)
-            localStorage.setItem("name", name as string)
-            localStorage.setItem("size", formatFileSize(size) as string)
+        const reader = new FileReader()
+        reader.onload = () => {
+            const content = reader.result as string
+            setFile({ name, size: formatFileSize(size), content })
+            localStorage.setItem("content", content)
+            localStorage.setItem("name", name)
+            localStorage.setItem("size", formatFileSize(size))
         }
-        fileReader.readAsText(file)
+        reader.readAsText(file)
+    } else {
+        alert("Incorrect file type")
+        setFile(null)
     }
 }
 
