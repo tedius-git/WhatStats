@@ -48,7 +48,8 @@
 .title {
   align-self: stretch;
   flex-grow: 1;
-  color: var(--black);
+  color: black;
+  text-shadow: 4px 4px 10px white;
   font-size: 100%;
   padding-left: 10px;
 }
