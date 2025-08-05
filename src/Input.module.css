@@ -32,5 +32,5 @@ form label:hover {
 }
 
 form input[type="file"] {
-  visibility: collapse;
+    display: none;
 }
