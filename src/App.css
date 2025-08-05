@@ -3,7 +3,7 @@
   --black: #141414;       
   --gray: #2e2e2e;
 
-  --glass:linear-gradient(to bottom, rgba(200, 200, 200, 0.0), rgba(200, 200, 200, 0.1));
+  --glass:linear-gradient(to bottom, rgba(200, 200, 200, 0.1), rgba(200, 200, 200, 0.0));
 } 
 
 
@@ -20,32 +20,27 @@ body {
   padding: 0;
 }
 
-header {
+.main {
+  height: 100dvh;
+}
+
+footer {
   background: var(--glass);
   backdrop-filter: blur(2px);
   display: flex;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
   flex-direction: row;
   align-items: center;
   height: 3rem;
-  width: 100%;
   padding-left: 1rem;
-}
-
-h1 {
-    flex:1;
-  font-size: 2rem;
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
 }
 
 .taskbar_app {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 3rem;
   width: 3rem;
+  height: 100%;
   margin: 20px;
   backdrop-filter: blur(2px);
   background:linear-gradient(to bottom,
